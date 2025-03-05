@@ -23,7 +23,7 @@ def create_client():
         http_compress=True,  # enables gzip compression for request bodies
         http_auth=_AUTH,
         use_ssl=True,
-        verify_certs=True,
+        verify_certs=False,
         ssl_assert_hostname=False,
         ssl_show_warn=False,
     )
@@ -42,6 +42,8 @@ def create_index(client: OpenSearch, index_name: str):
             "embedding": {
                 "type": "knn_vector",
                 "dimension": _DIM,
+                "mode": "on_disk",
+                "compression_level": 32,
                 "method": {
                     "engine": "faiss",
                     "name": "hnsw",

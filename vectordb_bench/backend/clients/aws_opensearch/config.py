@@ -10,8 +10,8 @@ log = logging.getLogger(__name__)
 
 class AWSOpenSearchConfig(DBConfig, BaseModel):
     host: str = ""
-    port: int = 443
-    user: str = ""
+    port: int = 9200
+    user: str = "admin"
     password: SecretStr = ""
 
     def to_dict(self) -> dict:
@@ -20,7 +20,7 @@ class AWSOpenSearchConfig(DBConfig, BaseModel):
             "http_auth": (self.user, self.password.get_secret_value()),
             "use_ssl": True,
             "http_compress": True,
-            "verify_certs": True,
+            "verify_certs": False,
             "ssl_assert_hostname": False,
             "ssl_show_warn": False,
             "timeout": 600,
@@ -37,8 +37,9 @@ class AWSOpenSearchIndexConfig(BaseModel, DBCaseConfig):
     metric_type: MetricType = MetricType.L2
     engine: AWSOS_Engine = AWSOS_Engine.faiss
     efConstruction: int = 256
-    efSearch: int = 256
+    efSearch: int = 100
     M: int = 16
+    compression_level: str = "32x"
     index_thread_qty: int | None = 4
     number_of_shards: int | None = 1
     number_of_replicas: int | None = 0

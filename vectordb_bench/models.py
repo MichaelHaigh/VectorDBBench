@@ -34,6 +34,7 @@ class CaseConfigParamType(Enum):
     Value will be the key of CaseConfig.params and displayed in UI
     """
 
+    Compression = "compression_level"
     IndexType = "IndexType"
     M = "M"
     EFConstruction = "efConstruction"

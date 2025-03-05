@@ -18,6 +18,15 @@ class AWSOpenSearchTypedDict(TypedDict):
     port: Annotated[int, click.option("--port", type=int, default=443, help="Db Port")]
     user: Annotated[str, click.option("--user", type=str, default="admin", help="Db User")]
     password: Annotated[str, click.option("--password", type=str, help="Db password")]
+    compression_level: Annotated[
+        int,
+        click.option(
+            "--compression-level",
+            type=click.Choice(["32x", "16x", "8x", "4x", "2x"]),
+            help="Compression level for binary quantization",
+            default="32x",
+        ),
+    ]
     number_of_shards: Annotated[
         int,
         click.option("--number-of-shards", type=int, help="Number of primary shards for the index", default=1),
@@ -110,6 +119,7 @@ def AWSOpenSearch(**parameters: Unpack[AWSOpenSearchHNSWTypedDict]):
             password=SecretStr(parameters["password"]),
         ),
         db_case_config=AWSOpenSearchIndexConfig(
+            compression_level=parameters["compression_level"],
             number_of_shards=parameters["number_of_shards"],
             number_of_replicas=parameters["number_of_replicas"],
             index_thread_qty=parameters["index_thread_qty"],

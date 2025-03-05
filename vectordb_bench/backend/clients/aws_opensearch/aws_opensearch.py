@@ -81,6 +81,8 @@ class AWSOpenSearch(VectorDB):
                 self.vector_col_name: {
                     "type": "knn_vector",
                     "dimension": self.dim,
+                    "mode": "on_disk",
+                    "compression_level": self.case_config.compression_level,
                     "method": self.case_config.index_param(),
                 },
             },

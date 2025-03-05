@@ -391,13 +391,21 @@ CaseConfigParamInput_EFConstruction_ES = CaseConfigInput(
     },
 )
 
+CaseConfigParamInput_Compression_AWSOpensearch = CaseConfigInput(
+    label=CaseConfigParamType.Compression,
+    inputType=InputType.Option,
+    inputConfig={
+        "options": ["32x", "16x", "8x", "4x", "2x"],
+    },
+)
+
 CaseConfigParamInput_EFConstruction_AWSOpensearch = CaseConfigInput(
     label=CaseConfigParamType.EFConstruction,
     inputType=InputType.Number,
     inputConfig={
-        "min": 100,
+        "min": 32,
         "max": 1024,
-        "value": 256,
+        "value": 32,
     },
 )
 
@@ -417,7 +425,7 @@ CaseConfigParamInput_EF_SEARCH_AWSOpensearch = CaseConfigInput(
     inputConfig={
         "min": 100,
         "max": 1024,
-        "value": 256,
+        "value": 100,
     },
 )
 
@@ -1117,8 +1125,9 @@ AWSOpensearchLoadingConfig = [
     CaseConfigParamInput_M_AWSOpensearch,
 ]
 AWSOpenSearchPerformanceConfig = [
-    CaseConfigParamInput_EFConstruction_AWSOpensearch,
+    CaseConfigParamInput_Compression_AWSOpensearch,
     CaseConfigParamInput_M_AWSOpensearch,
+    CaseConfigParamInput_EFConstruction_AWSOpensearch,
     CaseConfigParamInput_EF_SEARCH_AWSOpensearch,
 ]
 
