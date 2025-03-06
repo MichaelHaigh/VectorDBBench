@@ -41,14 +41,14 @@ class AWSOpenSearchIndexConfig(BaseModel, DBCaseConfig):
     M: int = 16
     compression_level: str = "32x"
     index_thread_qty: int | None = 4
-    number_of_shards: int | None = 1
-    number_of_replicas: int | None = 0
+    number_of_shards: int | None = 48
+    number_of_replicas: int | None = 1
     number_of_segments: int | None = 1
     refresh_interval: str | None = "60s"
     force_merge_enabled: bool | None = True
     flush_threshold_size: str | None = "5120mb"
     number_of_indexing_clients: int | None = 1
-    index_thread_qty_during_force_merge: int
+    index_thread_qty_during_force_merge: int = 4
     cb_threshold: str | None = "50%"
 
     def parse_metric(self) -> str:

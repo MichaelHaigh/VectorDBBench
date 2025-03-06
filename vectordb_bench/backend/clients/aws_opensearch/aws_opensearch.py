@@ -202,7 +202,7 @@ class AWSOpenSearch(VectorDB):
         while True:
             res = self.client.cat.indices(index=self.index_name, h="health", format="json")
             health = res[0]["health"]
-            if health != "green":
+            if health == "green":
                 break
             log.info(f"The index {self.index_name} has health : {health} and is not green. Retrying")
             time.sleep(SECONDS_WAITING_FOR_REPLICAS_TO_BE_ENABLED_SEC)
